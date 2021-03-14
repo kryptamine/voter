@@ -1,0 +1,21 @@
+{
+    "clients": [],
+    "database": "redis",
+    "databaseConfig": {
+        "redis": {
+            "host": "redis",
+            "port": "6379"
+        }
+    },
+    "devMode": false,
+    "host": null,
+    "port": "6001",
+    "protocol": "ws",
+    "socketio": {},
+    "subscribers": {
+        "http": true,
+        "redis": true
+    },
+    "verifyAuthPath": false,
+    "verifyAuthServer": false
+}
