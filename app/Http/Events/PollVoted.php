@@ -9,18 +9,16 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use JetBrains\PhpStorm\Pure;
 
-class UserVoted implements ShouldBroadcastNow
+class PollVoted implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets;
 
-    private const CHANNEL_NAME = 'user';
+    private const CHANNEL_NAME = 'poll';
 
-    public VoteResource $vote;
-
-    public function __construct(VoteResource $voteResource)
-    {
-        $this->vote = $voteResource;
-    }
+    public function __construct(
+        public VoteResource $vote,
+        private string $uuid
+    ) {}
 
     #[Pure]
     public function broadcastOn(): Channel
@@ -31,6 +29,6 @@ class UserVoted implements ShouldBroadcastNow
     #[Pure]
     public function broadcastAs(): string
     {
-        return sprintf('%s.voted', self::CHANNEL_NAME);
+        return sprintf('%s-%s.voted', self::CHANNEL_NAME, $this->uuid);
     }
 }

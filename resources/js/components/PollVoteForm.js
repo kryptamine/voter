@@ -7,7 +7,7 @@ import { generateHash } from '../utils/strings';
 
 const appKey = 'DzbSV9F9TPGzzomgszRhv1gITpwiusCtBtfH3ugDYpQ=';
 const hashKey = 'hash';
-const channel = 'user';
+const channel = 'poll';
 const uuid = window.location.pathname.replace(/^\/|\/$/g, '');
 const initialState = Object.freeze({
     pollName: '',
@@ -32,7 +32,7 @@ const PollVoteForm = () => {
         const echoConnection = connection();
         echoConnection
             .channel(channel)
-            .listen(`.user.voted`, voteData => {
+            .listen(`.${channel}-${uuid}.voted`, voteData => {
                 appendVote(voteData.vote);
             });
 

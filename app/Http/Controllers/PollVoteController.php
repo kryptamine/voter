@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Events\UserVoted;
+use App\Http\Events\PollVoted;
 use App\Http\Requests\VoteRequest;
 use App\Http\Resources\VoteResource;
 use App\Http\Resources\VoteResourceCollection;
@@ -33,7 +33,7 @@ class PollVoteController extends Controller
                 $pollService->vote($poll, $voteRequest->toDto())
             );
 
-            UserVoted::dispatch($voteResource);
+            PollVoted::dispatch($voteResource, $poll->uuid);
 
             return $voteResource;
         } catch (HashDecryptException | DecryptException $_) {

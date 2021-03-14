@@ -4,7 +4,7 @@ namespace App\Http\Services;
 
 use App\Http\DTO\PollCreateDto;
 use App\Http\DTO\VoteCreateDto;
-use App\Http\Events\UserVoted;
+use App\Http\Events\PollVoted;
 use App\Http\Resources\VoteResource;
 use App\Http\Services\Exceptions\AlreadyVotedException;
 use App\Http\Services\Exceptions\HashDecryptException;

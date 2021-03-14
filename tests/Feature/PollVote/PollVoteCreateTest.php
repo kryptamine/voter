@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\PollVote;
 
+use App\Http\Events\PollVoted;
 use App\Models\Poll;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,6 +15,8 @@ class PollVoteCreateTest extends AbstractPollVoteTestCase
 
     public function testPositive(): void
     {
+        Event::fake(PollVoted::class);
+
         $poll = Poll::factory()->hasAnswers(2)->create();
         $data = [
             'name' => $this->faker->regexify('[A-Za-z0-9]{20}'),
@@ -31,6 +35,8 @@ class PollVoteCreateTest extends AbstractPollVoteTestCase
             'answer_id' => $data['answer_id'],
             'hash' => decrypt($data['hash'], false),
         ]);
+
+        Event::assertDispatched(PollVoted::class);
     }
 
     public function testForbiddenOnInvalidHash(): void
