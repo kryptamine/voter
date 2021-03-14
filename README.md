@@ -11,6 +11,7 @@ Simple poll application with multiple-voting protection and reactive updates.
 ## Requirements
 - **[Docker](https://www.docker.com/)**
 - MacOS / Linux
+- Ports: [80, 6001, 6309]
 
 ## Build & Run
 1. Run ./run.sh

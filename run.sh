@@ -23,13 +23,11 @@ if docker-compose ps | grep 'Exit'; then
 elif [ -n "$PSRESULT" ]; then
     EXEC="yes"
 else
-    EXEC="no"
+    docker-compose up -d
+    EXEC="yes"
 fi
 
-echo $EXEC
-
 if [ "$EXEC" == "yes" ]; then
-    docker-compose up -d && \
     docker-compose exec \
     -u www \
     app \
@@ -37,7 +35,9 @@ if [ "$EXEC" == "yes" ]; then
     docker-compose exec \
         -u www \
         app \
-        php artisan migrate
+        php artisan migrate --force && \
+        echo "Installation complete"
+        echo "Voter up and running at: http://localhost"
 else
     not_running
 fi
